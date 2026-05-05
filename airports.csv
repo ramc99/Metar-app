@@ -1,0 +1,138 @@
+icao,iata,name,city,country
+KJFK,JFK,John F. Kennedy International,New York,United States
+KLAX,LAX,Los Angeles International,Los Angeles,United States
+KORD,ORD,O'Hare International,Chicago,United States
+KATL,ATL,Hartsfield-Jackson Atlanta International,Atlanta,United States
+KDFW,DFW,Dallas Fort Worth International,Dallas,United States
+KDEN,DEN,Denver International,Denver,United States
+KSFO,SFO,San Francisco International,San Francisco,United States
+KLAS,LAS,Harry Reid International,Las Vegas,United States
+KMIA,MIA,Miami International,Miami,United States
+KBOS,BOS,Boston Logan International,Boston,United States
+KSEA,SEA,Seattle-Tacoma International,Seattle,United States
+KPHX,PHX,Phoenix Sky Harbor International,Phoenix,United States
+KEWR,EWR,Newark Liberty International,Newark,United States
+KIAH,IAH,George Bush Intercontinental,Houston,United States
+KMSP,MSP,Minneapolis-Saint Paul International,Minneapolis,United States
+KDTW,DTW,Detroit Metropolitan Wayne County,Detroit,United States
+KPHL,PHL,Philadelphia International,Philadelphia,United States
+KLGA,LGA,LaGuardia Airport,New York,United States
+KBWI,BWI,Baltimore Washington International,Baltimore,United States
+KSLC,SLC,Salt Lake City International,Salt Lake City,United States
+KMCO,MCO,Orlando International,Orlando,United States
+KDCA,DCA,Ronald Reagan Washington National,Washington DC,United States
+KIAD,IAD,Washington Dulles International,Washington DC,United States
+CYYZ,YYZ,Toronto Pearson International,Toronto,Canada
+CYVR,YVR,Vancouver International,Vancouver,Canada
+CYUL,YUL,Montreal Trudeau International,Montreal,Canada
+CYYC,YYC,Calgary International,Calgary,Canada
+CYEG,YEG,Edmonton International,Edmonton,Canada
+MMMX,MEX,Benito Juarez International,Mexico City,Mexico
+EGLL,LHR,London Heathrow,London,United Kingdom
+EGKK,LGW,London Gatwick,London,United Kingdom
+EGGW,LTN,London Luton,London,United Kingdom
+EGSS,STN,London Stansted,London,United Kingdom
+EGCC,MAN,Manchester Airport,Manchester,United Kingdom
+EGPH,EDI,Edinburgh Airport,Edinburgh,United Kingdom
+EGPF,GLA,Glasgow Airport,Glasgow,United Kingdom
+LFPG,CDG,Charles de Gaulle International,Paris,France
+LFPO,ORY,Paris Orly,Paris,France
+EDDF,FRA,Frankfurt International,Frankfurt,Germany
+EDDM,MUC,Munich International,Munich,Germany
+EDDB,BER,Berlin Brandenburg International,Berlin,Germany
+EHAM,AMS,Amsterdam Schiphol,Amsterdam,Netherlands
+LEMD,MAD,Adolfo Suarez Madrid Barajas,Madrid,Spain
+LEBL,BCN,Barcelona El Prat,Barcelona,Spain
+LIRF,FCO,Rome Fiumicino,Rome,Italy
+LIML,LIN,Milan Linate,Milan,Italy
+LIMC,MXP,Milan Malpensa,Milan,Italy
+LSZH,ZRH,Zurich Airport,Zurich,Switzerland
+LSGG,GVA,Geneva Airport,Geneva,Switzerland
+LOWW,VIE,Vienna International,Vienna,Austria
+LKPR,PRG,Prague Vaclav Havel,Prague,Czech Republic
+EPWA,WAW,Warsaw Chopin,Warsaw,Poland
+EKCH,CPH,Copenhagen Kastrup,Copenhagen,Denmark
+ESSA,ARN,Stockholm Arlanda,Stockholm,Sweden
+ENGM,OSL,Oslo Gardermoen,Oslo,Norway
+EFHK,HEL,Helsinki Vantaa,Helsinki,Finland
+EBBR,BRU,Brussels Airport,Brussels,Belgium
+EIDW,DUB,Dublin Airport,Dublin,Ireland
+LGAV,ATH,Athens Eleftherios Venizelos,Athens,Greece
+LTFM,IST,Istanbul Airport,Istanbul,Turkey
+LTBA,SAW,Istanbul Sabiha Gokcen,Istanbul,Turkey
+UUEE,SVO,Moscow Sheremetyevo,Moscow,Russia
+UUWW,VKO,Moscow Vnukovo,Moscow,Russia
+UUDD,DME,Moscow Domodedovo,Moscow,Russia
+OMDB,DXB,Dubai International,Dubai,UAE
+OMAA,AUH,Abu Dhabi International,Abu Dhabi,UAE
+OERK,RUH,King Khalid International,Riyadh,Saudi Arabia
+OEDF,DMM,King Fahd International,Dammam,Saudi Arabia
+OEJN,JED,King Abdulaziz International,Jeddah,Saudi Arabia
+OKBK,KWI,Kuwait International,Kuwait City,Kuwait
+OOMS,MCT,Muscat International,Muscat,Oman
+OTHH,DOH,Hamad International,Doha,Qatar
+OBBI,BAH,Bahrain International,Manama,Bahrain
+VIDP,DEL,Indira Gandhi International,New Delhi,India
+VABB,BOM,Chhatrapati Shivaji Maharaj International,Mumbai,India
+VOBL,BLR,Kempegowda International,Bangalore,India
+VOMM,MAA,Chennai International,Chennai,India
+VECC,CCU,Netaji Subhas Chandra Bose International,Kolkata,India
+VOCI,COK,Cochin International,Kochi,India
+VOGO,GOI,Goa International,Goa,India
+VABO,BDQ,Vadodara Airport,Vadodara,India
+VAHB,HYD,Rajiv Gandhi International,Hyderabad,India
+RJTT,HND,Tokyo Haneda,Tokyo,Japan
+RJAA,NRT,Tokyo Narita,Tokyo,Japan
+RJOO,ITM,Osaka Itami,Osaka,Japan
+RJBB,KIX,Kansai International,Osaka,Japan
+RKSI,ICN,Seoul Incheon International,Seoul,South Korea
+RKSS,GMP,Seoul Gimpo,Seoul,South Korea
+ZBAA,PEK,Beijing Capital International,Beijing,China
+ZBAD,PKX,Beijing Daxing International,Beijing,China
+ZSPD,PVG,Shanghai Pudong International,Shanghai,China
+ZSSS,SHA,Shanghai Hongqiao,Shanghai,China
+ZGGG,CAN,Guangzhou Baiyun International,Guangzhou,China
+VHHH,HKG,Hong Kong International,Hong Kong,Hong Kong
+WSSS,SIN,Singapore Changi,Singapore,Singapore
+VTBS,BKK,Bangkok Suvarnabhumi,Bangkok,Thailand
+VTBD,DMK,Bangkok Don Mueang,Bangkok,Thailand
+WMKK,KUL,Kuala Lumpur International,Kuala Lumpur,Malaysia
+WIII,CGK,Soekarno-Hatta International,Jakarta,Indonesia
+RPLL,MNL,Ninoy Aquino International,Manila,Philippines
+RCTP,TPE,Taiwan Taoyuan International,Taipei,Taiwan
+VGHS,DAC,Hazrat Shahjalal International,Dhaka,Bangladesh
+VCBI,CMB,Bandaranaike International,Colombo,Sri Lanka
+VNKT,KTM,Tribhuvan International,Kathmandu,Nepal
+OPKC,KHI,Jinnah International,Karachi,Pakistan
+OPLR,LHE,Allama Iqbal International,Lahore,Pakistan
+OPIS,ISB,Islamabad International,Islamabad,Pakistan
+FAOR,JNB,O.R. Tambo International,Johannesburg,South Africa
+FACT,CPT,Cape Town International,Cape Town,South Africa
+FALE,DUR,King Shaka International,Durban,South Africa
+HECA,CAI,Cairo International,Cairo,Egypt
+DNMM,LOS,Murtala Muhammed International,Lagos,Nigeria
+HAAB,ADD,Bole International,Addis Ababa,Ethiopia
+HTDA,DAR,Julius Nyerere International,Dar es Salaam,Tanzania
+HKNA,NBO,Jomo Kenyatta International,Nairobi,Kenya
+HSSS,KRT,Khartoum International,Khartoum,Sudan
+GOOY,DKR,Blaise Diagne International,Dakar,Senegal
+YSSY,SYD,Sydney Kingsford Smith,Sydney,Australia
+YMML,MEL,Melbourne Airport,Melbourne,Australia
+YBBN,BNE,Brisbane Airport,Brisbane,Australia
+YPPH,PER,Perth Airport,Perth,Australia
+YPAD,ADL,Adelaide Airport,Adelaide,Australia
+NZAA,AKL,Auckland Airport,Auckland,New Zealand
+NZCH,CHC,Christchurch Airport,Christchurch,New Zealand
+NZWN,WLG,Wellington Airport,Wellington,New Zealand
+SBGR,GRU,Sao Paulo Guarulhos International,Sao Paulo,Brazil
+SBGL,GIG,Rio de Janeiro Galeao International,Rio de Janeiro,Brazil
+SBBR,BSB,Brasilia International,Brasilia,Brazil
+SCEL,SCL,Santiago Arturo Merino Benitez,Santiago,Chile
+SKBO,BOG,Bogota El Dorado International,Bogota,Colombia
+SEQM,UIO,Quito Mariscal Sucre International,Quito,Ecuador
+SPJC,LIM,Lima Jorge Chavez International,Lima,Peru
+SAEZ,EZE,Buenos Aires Ezeiza International,Buenos Aires,Argentina
+TBPB,BGI,Grantley Adams International,Bridgetown,Barbados
+MDPP,PUJ,Punta Cana International,Punta Cana,Dominican Republic
+MUCO,HAV,Jose Marti International,Havana,Cuba
+MKJP,KIN,Norman Manley International,Kingston,Jamaica

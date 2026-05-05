@@ -1,22 +1,28 @@
-from flask import Flask, render_template, jsonify, request, abort
+import csv
+import os
+from flask import Flask, render_template, jsonify, request, send_file
 import requests
 from metar import Metar as MetarParser
 
 app = Flask(__name__)
 
 NOAA_URL = "https://tgftp.nws.noaa.gov/data/observations/metar/stations/{icao}.TXT"
+AIRPORTS_CSV = os.path.join(os.path.dirname(__file__), "airports.csv")
 
-WEATHER_DESCRIPTIONS = {
-    "RA": "Rain", "SN": "Snow", "DZ": "Drizzle", "GR": "Hail",
-    "GS": "Small Hail", "TS": "Thunderstorm", "FG": "Fog",
-    "BR": "Mist", "HZ": "Haze", "FU": "Smoke", "SA": "Sand",
-    "DU": "Dust", "SQ": "Squall", "FC": "Funnel Cloud",
-    "SS": "Sandstorm", "DS": "Duststorm", "PL": "Ice Pellets",
-    "IC": "Ice Crystals", "UP": "Unknown Precipitation",
-}
+# ---------- Load airport data once at startup ----------
+AIRPORTS = []
+AIRPORTS_BY_ICAO = {}
 
-INTENSITY_LABELS = {"-": "Light", "": "Moderate", "+": "Heavy", "VC": "In Vicinity"}
+def load_airports():
+    with open(AIRPORTS_CSV, newline="", encoding="utf-8") as f:
+        for row in csv.DictReader(f):
+            AIRPORTS.append(row)
+            AIRPORTS_BY_ICAO[row["icao"].upper()] = row
 
+load_airports()
+
+
+# ---------- METAR helpers ----------
 
 def fetch_raw_metar(icao: str) -> str:
     icao = icao.strip().upper()
@@ -24,15 +30,12 @@ def fetch_raw_metar(icao: str) -> str:
     response = requests.get(url, timeout=10)
     response.raise_for_status()
     lines = [l.strip() for l in response.text.strip().splitlines() if l.strip()]
-    # NOAA file: line 0 = observation timestamp, line 1 = raw METAR
     if len(lines) < 2:
         raise ValueError("Unexpected NOAA response format")
     return lines[1]
 
 
 def calculate_flight_rules(ceiling_ft, visibility_sm):
-    if ceiling_ft is None and visibility_sm is None:
-        return "VFR", "success"
     c = ceiling_ft if ceiling_ft is not None else 99999
     v = visibility_sm if visibility_sm is not None else 99999
     if c < 500 or v < 1:
@@ -95,12 +98,18 @@ def parse_metar(raw: str) -> dict:
     ceiling_ft = get_ceiling(sky_layers)
 
     flight_category, flight_color = calculate_flight_rules(ceiling_ft, visibility_sm)
-
     weather_str = obs.present_weather() if hasattr(obs, "present_weather") else ""
+
+    # Enrich with airport info if available
+    airport_info = AIRPORTS_BY_ICAO.get(obs.station_id or "", {})
 
     return {
         "raw": raw,
         "station_id": obs.station_id,
+        "airport_name": airport_info.get("name"),
+        "airport_city": airport_info.get("city"),
+        "airport_country": airport_info.get("country"),
+        "iata": airport_info.get("iata"),
         "observation_time": obs.time.strftime("%Y-%m-%d %H:%M UTC") if obs.time else None,
         "temperature_c": round(temp_c, 1) if temp_c is not None else None,
         "temperature_f": temp_f,
@@ -123,9 +132,16 @@ def parse_metar(raw: str) -> dict:
     }
 
 
+# ---------- Routes ----------
+
 @app.route("/")
 def index():
     return render_template("index.html")
+
+
+@app.route("/airports")
+def airports_page():
+    return render_template("airports.html", airports=AIRPORTS)
 
 
 @app.route("/metar/<icao>")
@@ -134,7 +150,7 @@ def metar_page(icao):
         raw = fetch_raw_metar(icao)
         data = parse_metar(raw)
         return render_template("metar.html", data=data, icao=icao.upper())
-    except requests.HTTPError as e:
+    except requests.HTTPError:
         error = f"Airport '{icao.upper()}' not found or METAR unavailable."
         return render_template("error.html", error=error, icao=icao.upper()), 404
     except Exception as e:
@@ -147,20 +163,55 @@ def api_metar(icao):
         raw = fetch_raw_metar(icao)
         data = parse_metar(raw)
         return jsonify({"status": "ok", "data": data})
-    except requests.HTTPError as e:
+    except requests.HTTPError:
         return jsonify({"status": "error", "message": f"Airport '{icao.upper()}' not found."}), 404
     except Exception as e:
         return jsonify({"status": "error", "message": str(e)}), 500
 
 
+@app.route("/api/airports")
+def api_airports():
+    q = request.args.get("q", "").strip().lower()
+    if not q or len(q) < 2:
+        return jsonify([])
+    results = []
+    for a in AIRPORTS:
+        if (q in a["icao"].lower() or
+                q in a["name"].lower() or
+                q in a["city"].lower() or
+                q in a["country"].lower() or
+                q in a["iata"].lower()):
+            results.append(a)
+        if len(results) >= 10:
+            break
+    return jsonify(results)
+
+
 @app.route("/search")
 def search():
-    icao = request.args.get("icao", "").strip().upper()
-    if not icao:
-        return render_template("index.html", error="Please enter an ICAO code.")
-    if len(icao) != 4 or not icao.isalpha():
-        return render_template("index.html", error="ICAO codes are 4 letters (e.g. KJFK, EGLL, VIDP).")
-    return metar_page(icao)
+    q = request.args.get("q", "").strip().upper()
+    if not q:
+        return render_template("index.html", error="Please enter an airport name or ICAO code.")
+
+    # Exact 4-letter ICAO → go straight to METAR
+    if len(q) == 4 and q.isalpha():
+        return metar_page(q)
+
+    # Name/city search → find best match
+    q_lower = q.lower()
+    for a in AIRPORTS:
+        if (q_lower in a["name"].lower() or
+                q_lower in a["city"].lower() or
+                q_lower == a["iata"].lower()):
+            return metar_page(a["icao"])
+
+    return render_template("index.html",
+                           error=f"No airport found for '{q}'. Try the ICAO code directly (e.g. KJFK).")
+
+
+@app.route("/download/airports.csv")
+def download_csv():
+    return send_file(AIRPORTS_CSV, as_attachment=True, download_name="airports.csv")
 
 
 if __name__ == "__main__":

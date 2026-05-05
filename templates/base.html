@@ -13,11 +13,16 @@
     <a class="navbar-brand fw-bold" href="/">
       <i class="bi bi-cloud-sun-fill me-2 text-warning"></i>METAR Weather
     </a>
-    <form class="d-flex gap-2" action="/search" method="get">
-      <input class="form-control form-control-sm" type="text" name="icao"
-             placeholder="ICAO code (e.g. KJFK)" maxlength="4" style="width:180px;" />
-      <button class="btn btn-warning btn-sm fw-bold" type="submit">Search</button>
-    </form>
+    <div class="d-flex gap-2">
+      <a href="/airports" class="btn btn-outline-light btn-sm">
+        <i class="bi bi-table me-1"></i>All Airports
+      </a>
+      <form class="d-flex gap-2" action="/search" method="get">
+        <input class="form-control form-control-sm" type="text" name="q"
+               placeholder="ICAO, IATA or airport name" style="width:220px;" />
+        <button class="btn btn-warning btn-sm fw-bold" type="submit">Search</button>
+      </form>
+    </div>
   </nav>
 
   <main class="container py-4">
