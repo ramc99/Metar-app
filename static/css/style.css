@@ -1,0 +1,43 @@
+body {
+  background-color: #f8f9fa;
+  font-family: 'Segoe UI', system-ui, sans-serif;
+}
+
+.navbar-brand {
+  font-size: 1.2rem;
+  letter-spacing: 0.5px;
+}
+
+.card {
+  border: none;
+  border-radius: 12px;
+}
+
+.card-body {
+  padding: 1.25rem;
+}
+
+.badge {
+  border-radius: 8px;
+}
+
+.font-monospace {
+  font-size: 0.82rem;
+  word-break: break-all;
+}
+
+.btn {
+  border-radius: 8px;
+}
+
+.form-control {
+  border-radius: 8px;
+}
+
+footer {
+  font-size: 0.8rem;
+}
+
+.display-1 {
+  font-size: 5rem;
+}

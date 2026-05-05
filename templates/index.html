@@ -1,0 +1,76 @@
+{% extends "base.html" %}
+{% block title %}METAR Weather – Airport Weather Reports{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+  <div class="col-md-8 col-lg-6">
+
+    <div class="text-center mb-5 mt-3">
+      <i class="bi bi-cloud-sun display-1 text-warning"></i>
+      <h1 class="fw-bold mt-2">METAR Weather</h1>
+      <p class="text-muted">
+        Real-time standardised weather reports for airports worldwide.<br />
+        Enter a 4-letter <strong>ICAO airport code</strong> to get the latest METAR.
+      </p>
+    </div>
+
+    {% if error %}
+    <div class="alert alert-danger d-flex align-items-center" role="alert">
+      <i class="bi bi-exclamation-triangle-fill me-2"></i>{{ error }}
+    </div>
+    {% endif %}
+
+    <form action="/search" method="get" class="card shadow-sm p-4">
+      <div class="mb-3">
+        <label for="icao" class="form-label fw-semibold">ICAO Airport Code</label>
+        <input type="text" class="form-control form-control-lg text-uppercase"
+               id="icao" name="icao" placeholder="e.g. KJFK"
+               maxlength="4" autocomplete="off" autofocus />
+        <div class="form-text">4-letter code assigned to each airport by ICAO.</div>
+      </div>
+      <button type="submit" class="btn btn-warning btn-lg w-100 fw-bold">
+        <i class="bi bi-search me-2"></i>Get METAR
+      </button>
+    </form>
+
+    <div class="mt-5">
+      <h5 class="fw-semibold mb-3">Popular Airports</h5>
+      <div class="row g-2">
+        {% for code, name in [
+          ("KJFK","New York JFK"), ("EGLL","London Heathrow"),
+          ("VIDP","Delhi Indira Gandhi"), ("OMDB","Dubai Intl"),
+          ("YSSY","Sydney Kingsford"), ("RJTT","Tokyo Haneda"),
+          ("LFPG","Paris CDG"),       ("EDDF","Frankfurt Intl")
+        ] %}
+        <div class="col-6 col-md-3">
+          <a href="/metar/{{ code }}" class="btn btn-outline-secondary btn-sm w-100">
+            <strong>{{ code }}</strong><br /><small class="text-muted">{{ name }}</small>
+          </a>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+
+    <div class="mt-5 card bg-light p-3">
+      <h6 class="fw-bold">Flight Category Legend</h6>
+      <div class="d-flex gap-3 flex-wrap mt-2">
+        <span class="badge bg-success fs-6 px-3">VFR</span>
+        <span class="text-muted small">Ceiling &gt; 3000 ft &amp; Vis &gt; 5 SM</span>
+      </div>
+      <div class="d-flex gap-3 flex-wrap mt-1">
+        <span class="badge bg-info fs-6 px-3">MVFR</span>
+        <span class="text-muted small">Ceiling 1000–3000 ft or Vis 3–5 SM</span>
+      </div>
+      <div class="d-flex gap-3 flex-wrap mt-1">
+        <span class="badge bg-warning text-dark fs-6 px-3">IFR</span>
+        <span class="text-muted small">Ceiling 500–999 ft or Vis 1–3 SM</span>
+      </div>
+      <div class="d-flex gap-3 flex-wrap mt-1">
+        <span class="badge bg-danger fs-6 px-3">LIFR</span>
+        <span class="text-muted small">Ceiling &lt; 500 ft or Vis &lt; 1 SM</span>
+      </div>
+    </div>
+
+  </div>
+</div>
+{% endblock %}
