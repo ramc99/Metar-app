@@ -44,18 +44,29 @@ def calculate_flight_rules(ceiling_ft, visibility_sm):
     return "VFR", "success"
 
 
+def format_sky_layer(layer):
+    cover, height, modifier = layer
+    if height:
+        try:
+            height_ft = int(height.value("FT"))
+            code = f"{cover}{height_ft // 100:03d}"
+        except Exception:
+            code = cover
+    else:
+        code = cover
+    if modifier:
+        code += f" ({modifier})"
+    return code
+
+
 def get_ceiling(sky_layers):
-    broken_overcast = ["BKN", "OVC"]
     for layer in sky_layers:
-        layer_str = str(layer)
-        for cover in broken_overcast:
-            if cover in layer_str:
-                parts = layer_str.split()
-                for part in parts:
-                    try:
-                        return int(part) * 100
-                    except ValueError:
-                        continue
+        cover, height, _ = layer
+        if cover in ("BKN", "OVC") and height:
+            try:
+                return int(height.value("FT"))
+            except Exception:
+                pass
     return None
 
 
@@ -80,7 +91,7 @@ def parse_metar(raw: str) -> dict:
     pressure_hpa = obs.press.value("MB") if obs.press else None
 
     sky_layers = obs.sky if obs.sky else []
-    sky_str = [str(layer) for layer in sky_layers]
+    sky_str = [format_sky_layer(layer) for layer in sky_layers]
     ceiling_ft = get_ceiling(sky_layers)
 
     flight_category, flight_color = calculate_flight_rules(ceiling_ft, visibility_sm)
