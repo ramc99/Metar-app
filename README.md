@@ -77,8 +77,8 @@ metar-app/
 ### 1. Clone the repository
 
 ```bash
-git clone https://github.com/YOUR_USERNAME/metar-app.git
-cd metar-app
+git clone https://github.com/ramc99/Metar-app.git
+cd Metar-app
 ```
 
 ### 2. Create and activate a virtual environment
